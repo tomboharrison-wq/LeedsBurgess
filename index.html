@@ -1,0 +1,1249 @@
+<!doctype html>
+<html lang="en-GB" xmlns:mso="urn:schemas-microsoft-com:office:office" xmlns:msdt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Virtual fieldtrip along a 10.5 km transect across Leeds to test the Burgess model. Year 8 Geography, The Snaith School.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='19' fill='%2325B755'/%3E%3Ccircle cx='20' cy='20' r='15' fill='%23006DDF'/%3E%3Ccircle cx='20' cy='20' r='11' fill='%23FFE627'/%3E%3Ccircle cx='20' cy='20' r='7' fill='%23FF912A'/%3E%3Ccircle cx='20' cy='20' r='3.5' fill='%23ED3F23'/%3E%3C/svg%3E">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>Leeds Transect Fieldtrip</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* required styles */
+
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	}
+.leaflet-container {
+	overflow: hidden;
+	}
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+	  -webkit-user-drag: none;
+	}
+/* Prevents IE11 from highlighting tiles in blue */
+.leaflet-tile::selection {
+	background: transparent;
+}
+/* Safari renders non-retina tile on retina better with this, but Chrome is worse */
+.leaflet-safari .leaflet-tile {
+	image-rendering: -webkit-optimize-contrast;
+	}
+/* hack that prevents hw layers "stretching" when loading new tiles */
+.leaflet-safari .leaflet-tile-container {
+	width: 1600px;
+	height: 1600px;
+	-webkit-transform-origin: 0 0;
+	}
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	display: block;
+	}
+/* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */
+/* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */
+.leaflet-container .leaflet-overlay-pane svg {
+	max-width: none !important;
+	max-height: none !important;
+	}
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer,
+.leaflet-container .leaflet-tile {
+	max-width: none !important;
+	max-height: none !important;
+	width: auto;
+	padding: 0;
+	}
+
+.leaflet-container img.leaflet-tile {
+	/* See: https://bugs.chromium.org/p/chromium/issues/detail?id=600120 */
+	mix-blend-mode: plus-lighter;
+}
+
+.leaflet-container.leaflet-touch-zoom {
+	-ms-touch-action: pan-x pan-y;
+	touch-action: pan-x pan-y;
+	}
+.leaflet-container.leaflet-touch-drag {
+	-ms-touch-action: pinch-zoom;
+	/* Fallback for FF which doesn't support pinch-zoom */
+	touch-action: none;
+	touch-action: pinch-zoom;
+}
+.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.leaflet-container {
+	-webkit-tap-highlight-color: transparent;
+}
+.leaflet-container a {
+	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+}
+.leaflet-tile {
+	filter: inherit;
+	visibility: hidden;
+	}
+.leaflet-tile-loaded {
+	visibility: inherit;
+	}
+.leaflet-zoom-box {
+	width: 0;
+	height: 0;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	z-index: 800;
+	}
+/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
+.leaflet-overlay-pane svg {
+	-moz-user-select: none;
+	}
+
+.leaflet-pane         { z-index: 400; }
+
+.leaflet-tile-pane    { z-index: 200; }
+.leaflet-overlay-pane { z-index: 400; }
+.leaflet-shadow-pane  { z-index: 500; }
+.leaflet-marker-pane  { z-index: 600; }
+.leaflet-tooltip-pane   { z-index: 650; }
+.leaflet-popup-pane   { z-index: 700; }
+
+.leaflet-map-pane canvas { z-index: 100; }
+.leaflet-map-pane svg    { z-index: 200; }
+
+.leaflet-vml-shape {
+	width: 1px;
+	height: 1px;
+	}
+.lvml {
+	behavior: url(#default#VML);
+	display: inline-block;
+	position: absolute;
+	}
+
+
+/* control positioning */
+
+.leaflet-control {
+	position: relative;
+	z-index: 800;
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+.leaflet-top,
+.leaflet-bottom {
+	position: absolute;
+	z-index: 1000;
+	pointer-events: none;
+	}
+.leaflet-top {
+	top: 0;
+	}
+.leaflet-right {
+	right: 0;
+	}
+.leaflet-bottom {
+	bottom: 0;
+	}
+.leaflet-left {
+	left: 0;
+	}
+.leaflet-control {
+	float: left;
+	clear: both;
+	}
+.leaflet-right .leaflet-control {
+	float: right;
+	}
+.leaflet-top .leaflet-control {
+	margin-top: 10px;
+	}
+.leaflet-bottom .leaflet-control {
+	margin-bottom: 10px;
+	}
+.leaflet-left .leaflet-control {
+	margin-left: 10px;
+	}
+.leaflet-right .leaflet-control {
+	margin-right: 10px;
+	}
+
+
+/* zoom and fade animations */
+
+.leaflet-fade-anim .leaflet-popup {
+	opacity: 0;
+	-webkit-transition: opacity 0.2s linear;
+	   -moz-transition: opacity 0.2s linear;
+	        transition: opacity 0.2s linear;
+	}
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+	opacity: 1;
+	}
+.leaflet-zoom-animated {
+	-webkit-transform-origin: 0 0;
+	    -ms-transform-origin: 0 0;
+	        transform-origin: 0 0;
+	}
+svg.leaflet-zoom-animated {
+	will-change: transform;
+}
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
+	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
+	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
+	}
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile {
+	-webkit-transition: none;
+	   -moz-transition: none;
+	        transition: none;
+	}
+
+.leaflet-zoom-anim .leaflet-zoom-hide {
+	visibility: hidden;
+	}
+
+
+/* cursors */
+
+.leaflet-interactive {
+	cursor: pointer;
+	}
+.leaflet-grab {
+	cursor: -webkit-grab;
+	cursor:    -moz-grab;
+	cursor:         grab;
+	}
+.leaflet-crosshair,
+.leaflet-crosshair .leaflet-interactive {
+	cursor: crosshair;
+	}
+.leaflet-popup-pane,
+.leaflet-control {
+	cursor: auto;
+	}
+.leaflet-dragging .leaflet-grab,
+.leaflet-dragging .leaflet-grab .leaflet-interactive,
+.leaflet-dragging .leaflet-marker-draggable {
+	cursor: move;
+	cursor: -webkit-grabbing;
+	cursor:    -moz-grabbing;
+	cursor:         grabbing;
+	}
+
+/* marker & overlays interactivity */
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-image-layer,
+.leaflet-pane > svg path,
+.leaflet-tile-container {
+	pointer-events: none;
+	}
+
+.leaflet-marker-icon.leaflet-interactive,
+.leaflet-image-layer.leaflet-interactive,
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+
+/* visual tweaks */
+
+.leaflet-container {
+	background: #ddd;
+	outline-offset: 1px;
+	}
+.leaflet-container a {
+	color: #0078A8;
+	}
+.leaflet-zoom-box {
+	border: 2px dotted #38f;
+	background: rgba(255,255,255,0.5);
+	}
+
+
+/* general typography */
+.leaflet-container {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	}
+
+
+/* general toolbar styles */
+
+.leaflet-bar {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border-radius: 4px;
+	}
+.leaflet-bar a {
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	}
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+	}
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+	background-color: #f4f4f4;
+	}
+.leaflet-bar a:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	}
+.leaflet-bar a:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom: none;
+	}
+.leaflet-bar a.leaflet-disabled {
+	cursor: default;
+	background-color: #f4f4f4;
+	color: #bbb;
+	}
+
+.leaflet-touch .leaflet-bar a {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	}
+.leaflet-touch .leaflet-bar a:first-child {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	}
+.leaflet-touch .leaflet-bar a:last-child {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	}
+
+/* zoom control */
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+	font: bold 18px 'Lucida Console', Monaco, monospace;
+	text-indent: 1px;
+	}
+
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
+	font-size: 22px;
+	}
+
+
+/* layers control */
+
+.leaflet-control-layers {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+	background: #fff;
+	border-radius: 5px;
+	}
+.leaflet-control-layers-toggle {
+	background-image: url(images/layers.png);
+	width: 36px;
+	height: 36px;
+	}
+.leaflet-retina .leaflet-control-layers-toggle {
+	background-image: url(images/layers-2x.png);
+	background-size: 26px 26px;
+	}
+.leaflet-touch .leaflet-control-layers-toggle {
+	width: 44px;
+	height: 44px;
+	}
+.leaflet-control-layers .leaflet-control-layers-list,
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+	display: none;
+	}
+.leaflet-control-layers-expanded .leaflet-control-layers-list {
+	display: block;
+	position: relative;
+	}
+.leaflet-control-layers-expanded {
+	padding: 6px 10px 6px 6px;
+	color: #333;
+	background: #fff;
+	}
+.leaflet-control-layers-scrollbar {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-right: 5px;
+	}
+.leaflet-control-layers-selector {
+	margin-top: 2px;
+	position: relative;
+	top: 1px;
+	}
+.leaflet-control-layers label {
+	display: block;
+	font-size: 13px;
+	font-size: 1.08333em;
+	}
+.leaflet-control-layers-separator {
+	height: 0;
+	border-top: 1px solid #ddd;
+	margin: 5px -10px 5px -6px;
+	}
+
+/* Default icon URLs */
+.leaflet-default-icon-path { /* used only in path-guessing heuristic, see L.Icon.Default */
+	background-image: url(images/marker-icon.png);
+	}
+
+
+/* attribution and scale controls */
+
+.leaflet-container .leaflet-control-attribution {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	margin: 0;
+	}
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+	padding: 0 5px;
+	color: #333;
+	line-height: 1.4;
+	}
+.leaflet-control-attribution a {
+	text-decoration: none;
+	}
+.leaflet-control-attribution a:hover,
+.leaflet-control-attribution a:focus {
+	text-decoration: underline;
+	}
+.leaflet-attribution-flag {
+	display: inline !important;
+	vertical-align: baseline !important;
+	width: 1em;
+	height: 0.6669em;
+	}
+.leaflet-left .leaflet-control-scale {
+	margin-left: 5px;
+	}
+.leaflet-bottom .leaflet-control-scale {
+	margin-bottom: 5px;
+	}
+.leaflet-control-scale-line {
+	border: 2px solid #777;
+	border-top: none;
+	line-height: 1.1;
+	padding: 2px 5px 1px;
+	white-space: nowrap;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.8);
+	text-shadow: 1px 1px #fff;
+	}
+.leaflet-control-scale-line:not(:first-child) {
+	border-top: 2px solid #777;
+	border-bottom: none;
+	margin-top: -2px;
+	}
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+	border-bottom: 2px solid #777;
+	}
+
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	box-shadow: none;
+	}
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	border: 2px solid rgba(0,0,0,0.2);
+	background-clip: padding-box;
+	}
+
+
+/* popup */
+
+.leaflet-popup {
+	position: absolute;
+	text-align: center;
+	margin-bottom: 20px;
+	}
+.leaflet-popup-content-wrapper {
+	padding: 1px;
+	text-align: left;
+	border-radius: 12px;
+	}
+.leaflet-popup-content {
+	margin: 13px 24px 13px 20px;
+	line-height: 1.3;
+	font-size: 13px;
+	font-size: 1.08333em;
+	min-height: 1px;
+	}
+.leaflet-popup-content p {
+	margin: 17px 0;
+	margin: 1.3em 0;
+	}
+.leaflet-popup-tip-container {
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -20px;
+	overflow: hidden;
+	pointer-events: none;
+	}
+.leaflet-popup-tip {
+	width: 17px;
+	height: 17px;
+	padding: 1px;
+
+	margin: -10px auto 0;
+	pointer-events: auto;
+
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+	background: white;
+	color: #333;
+	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+	}
+.leaflet-container a.leaflet-popup-close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: none;
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	font: 16px/24px Tahoma, Verdana, sans-serif;
+	color: #757575;
+	text-decoration: none;
+	background: transparent;
+	}
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+	color: #585858;
+	}
+.leaflet-popup-scrolled {
+	overflow: auto;
+	}
+
+.leaflet-oldie .leaflet-popup-content-wrapper {
+	-ms-zoom: 1;
+	}
+.leaflet-oldie .leaflet-popup-tip {
+	width: 24px;
+	margin: 0 auto;
+
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+	}
+
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+	border: 1px solid #999;
+	}
+
+
+/* div icon */
+
+.leaflet-div-icon {
+	background: #fff;
+	border: 1px solid #666;
+	}
+
+
+/* Tooltip */
+/* Base styles for the element that has a tooltip */
+.leaflet-tooltip {
+	position: absolute;
+	padding: 6px;
+	background-color: #fff;
+	border: 1px solid #fff;
+	border-radius: 3px;
+	color: #222;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	}
+.leaflet-tooltip.leaflet-interactive {
+	cursor: pointer;
+	pointer-events: auto;
+	}
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	position: absolute;
+	pointer-events: none;
+	border: 6px solid transparent;
+	background: transparent;
+	content: "";
+	}
+
+/* Directions */
+
+.leaflet-tooltip-bottom {
+	margin-top: 6px;
+}
+.leaflet-tooltip-top {
+	margin-top: -6px;
+}
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-top:before {
+	left: 50%;
+	margin-left: -6px;
+	}
+.leaflet-tooltip-top:before {
+	bottom: 0;
+	margin-bottom: -12px;
+	border-top-color: #fff;
+	}
+.leaflet-tooltip-bottom:before {
+	top: 0;
+	margin-top: -12px;
+	margin-left: -6px;
+	border-bottom-color: #fff;
+	}
+.leaflet-tooltip-left {
+	margin-left: -6px;
+}
+.leaflet-tooltip-right {
+	margin-left: 6px;
+}
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	top: 50%;
+	margin-top: -6px;
+	}
+.leaflet-tooltip-left:before {
+	right: 0;
+	margin-right: -12px;
+	border-left-color: #fff;
+	}
+.leaflet-tooltip-right:before {
+	left: 0;
+	margin-left: -12px;
+	border-right-color: #fff;
+	}
+
+/* Printing */
+
+@media print {
+	/* Prevent printers from removing background-images of controls. */
+	.leaflet-control {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+		}
+	}
+
+/* Layout: one-screen GIS workstation. Map with layer + basemap controls on the left, field notebook docked right, three-row transect profile under the map. */
+:root{
+  --paper:#f3f5f0; --panel:#ffffff; --ink:#18211c; --muted:#5a665f; --line:#d9dfd8; --soft:#eaeee8;
+  --forest:#205B41; --forest-ink:#ffffff; --yellow:#FFE627;
+  --good:#1f9e4a; --mid:#e07b10; --bad:#d8361c;
+  --shadow:0 10px 30px rgba(20,40,30,.14);
+  --f-ui:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0f1512; --panel:#161e1a; --ink:#e7eee9; --muted:#9aa8a0; --line:#2a3530; --soft:#1e2823;
+  --forest:#3f9a6f; --forest-ink:#08110c; --good:#3cc56a; --mid:#ff9b3d; --bad:#ff6a4d; --shadow:0 10px 30px rgba(0,0,0,.45); color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#0f1512; --panel:#161e1a; --ink:#e7eee9; --muted:#9aa8a0; --line:#2a3530; --soft:#1e2823;
+  --forest:#3f9a6f; --forest-ink:#08110c; --good:#3cc56a; --mid:#ff9b3d; --bad:#ff6a4d; --shadow:0 10px 30px rgba(0,0,0,.45); color-scheme:dark }
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.45;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:10px;box-sizing:border-box;
+  display:flex;flex-direction:column;gap:9px;overflow:hidden}
+*{box-sizing:border-box}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid #006DDF;outline-offset:2px}
+
+.bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand h1{font-size:22px;font-weight:900;letter-spacing:-.02em;margin:0;line-height:1}
+.brand small{display:block;font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:3px}
+.steps{display:flex;gap:5px;margin-left:auto;flex-wrap:wrap}
+.step{display:flex;align-items:center;gap:5px;border:1.5px solid var(--line);background:var(--panel);border-radius:999px;padding:4px 10px 4px 5px;font-weight:700;font-size:12.5px}
+.step i{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:800;border:1.5px solid rgba(0,0,0,.25)}
+.step[aria-current="true"]{border-color:var(--ink);box-shadow:0 0 0 2px var(--ink) inset}
+.step .ok{font-size:12px;margin-left:1px}
+
+.app{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 410px;gap:12px}
+.mapcol{display:flex;flex-direction:column;gap:9px;min-height:0;min-width:0}
+.mapwrap{position:relative;flex:1;min-height:0;border-radius:14px;overflow:hidden;border:1.5px solid var(--line);background:#f2efe9}
+#map{position:absolute;inset:0;background:#f2efe9 radial-gradient(#e2ded5 1px,transparent 1.2px) 0 0/14px 14px}
+.leaflet-container{font-family:var(--f-ui)}
+.pf{position:absolute;z-index:600;background:var(--panel);border:1.5px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.ctl{top:12px;left:12px;padding:10px 12px;display:flex;flex-direction:column;gap:7px;width:236px;max-height:calc(100% - 70px);overflow:auto}
+.ctl h3{margin:2px 0 0;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.seg3{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.seg3 button{border:1.5px solid var(--line);background:var(--panel);border-radius:8px;padding:6px 2px;font-weight:700;font-size:12.5px;line-height:1.1}
+.seg3 button[aria-pressed="true"]{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.tog{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13.5px;cursor:pointer}
+.tog input{width:17px;height:17px;accent-color:var(--forest)}
+.sw{width:14px;height:14px;border-radius:3px;flex:0 0 auto;display:inline-block}
+.lulegend{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;font-size:12px;font-weight:600}
+.lulegend span{display:flex;align-items:center;gap:5px}
+.tools{top:12px;right:12px;padding:7px;display:flex;gap:6px}
+.tbtn{border:1.5px solid var(--line);background:var(--panel);border-radius:9px;padding:7px 10px;font-weight:700;font-size:13px;display:flex;align-items:center;gap:6px}
+.tbtn[aria-pressed="true"]{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.readout{bottom:10px;left:12px;padding:6px 10px;font-family:var(--f-mono);font-size:12px;display:flex;gap:12px;flex-wrap:wrap;max-width:calc(100% - 90px)}
+.readout b{font-weight:600}
+.hint{bottom:52px;left:50%;transform:translateX(-50%);padding:8px 13px;font-size:13.5px;font-weight:600;max-width:440px;text-align:center}
+.yearbadge{top:12px;left:50%;transform:translateX(-50%);padding:5px 12px;font-family:var(--f-mono);font-weight:600;font-size:12.5px;background:#f4ecd6;color:#3b2f17;border-color:#cdb98a}
+
+/* swipe */
+.swipe{position:absolute;top:0;bottom:0;width:0;z-index:590;pointer-events:none}
+.swipe .ln{position:absolute;top:0;bottom:0;left:-2px;width:4px;background:#18211c;box-shadow:0 0 0 1px #fff}
+.swipe .hd{position:absolute;top:50%;left:-22px;width:44px;height:44px;margin-top:-22px;border-radius:50%;background:#FFE627;border:3px solid #18211c;display:grid;place-items:center;font-weight:900;cursor:ew-resize;pointer-events:auto;touch-action:none;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.swipe .tag{position:absolute;top:56px;font-family:var(--f-mono);font-size:12px;font-weight:600;background:#18211c;color:#fff;padding:3px 8px;border-radius:5px;white-space:nowrap}
+.swipe .tag.l{right:10px}.swipe .tag.r{left:10px}
+
+/* markers */
+.pin{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:18px;border:3px solid #18211c;box-shadow:0 4px 12px rgba(0,0,0,.3);position:relative;transition:transform .25s}
+.pin.on{transform:scale(1.22)}
+.pin.on::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:3px solid #FFE627;animation:pulse 1.6s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.9);opacity:1}100%{transform:scale(1.9);opacity:0}}
+.pinlab{font-weight:800;font-size:13px;background:#fff;color:#18211c;border:1.5px solid #18211c;border-radius:6px;padding:2px 6px;white-space:nowrap}
+.leaflet-tooltip.tt{background:none;border:none;box-shadow:none;padding:0}.leaflet-tooltip.tt::before{display:none}
+.van{font-size:28px;filter:drop-shadow(0 3px 4px rgba(0,0,0,.4))}
+.ringlab{font-family:var(--f-mono);font-size:11px;font-weight:600;color:#18211c;background:rgba(255,255,255,.88);padding:1px 5px;border-radius:4px;white-space:nowrap}
+.dens{display:inline-block;font-family:var(--f-mono);font-weight:600;font-size:12px;color:#18211c;background:rgba(255,255,255,.94);border:1px solid #18211c;border-radius:5px;padding:2px 6px;white-space:nowrap;text-align:center;line-height:1.2}
+.dens small{display:block;font-family:var(--f-ui);font-weight:600;font-size:10.5px}
+.measlab{font-family:var(--f-mono);font-weight:600;font-size:13px;background:#18211c;color:#FFE627;padding:3px 7px;border-radius:5px;white-space:nowrap}
+.route-draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 1.8s ease-out .3s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+/* profile */
+.profile{background:var(--panel);border:1.5px solid var(--line);border-radius:14px;padding:9px 14px 6px}
+.profile .ph{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.profile h2{margin:0;font-size:14px;font-weight:800}
+.profile .legend{font-family:var(--f-mono);font-size:11px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
+.track{position:relative;margin-top:6px}
+.row{display:grid;grid-template-columns:128px 1fr;align-items:center;gap:10px;margin-bottom:4px}
+.row .rl{font-size:12.5px;font-weight:700;color:var(--muted)}
+.band{position:relative;height:22px;border-radius:6px;overflow:hidden;background:var(--soft)}
+.band .seg{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;overflow:hidden;white-space:nowrap}
+.band.lu .seg{cursor:help}
+.band .find{position:absolute;top:1px;bottom:1px;width:24px;margin-left:-12px;border-radius:5px;display:grid;place-items:center;font-size:12px;font-weight:900;border:1.5px solid #18211c;color:#18211c;background:#fff;transition:background .3s}
+.axis{position:relative;height:15px;margin-left:138px;font-family:var(--f-mono);font-size:10.5px;color:var(--muted)}
+.axis span{position:absolute;transform:translateX(-50%)}
+.cursor{position:absolute;top:-3px;bottom:16px;width:3px;margin-left:136px;background:var(--ink);border-radius:2px;transition:left 1.1s cubic-bezier(.6,0,.3,1);pointer-events:none}
+.cursor::before{content:"🚌";position:absolute;top:-17px;left:-9px;font-size:15px}
+
+/* notebook */
+.nb{background:var(--panel);border:1.5px solid var(--line);border-radius:14px;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.nbhead{padding:13px 16px 11px;border-bottom:1.5px solid var(--line);display:flex;gap:12px;align-items:center}
+.chip{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-weight:900;font-size:22px;border:2px solid rgba(0,0,0,.2);flex:0 0 auto}
+.nbhead h2{margin:0;font-size:21px;font-weight:900;letter-spacing:-.01em;line-height:1.1;text-wrap:balance}
+.meta{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-top:3px}
+.nbbody{flex:1;min-height:0;overflow:auto;padding:13px 16px 16px;display:flex;flex-direction:column;gap:14px}
+.nbbody.enter>*{animation:rise .45s ease-out both}
+.nbbody.enter>*:nth-child(2){animation-delay:.05s}.nbbody.enter>*:nth-child(3){animation-delay:.1s}.nbbody.enter>*:nth-child(4){animation-delay:.15s}.nbbody.enter>*:nth-child(5){animation-delay:.2s}
+@keyframes rise{from{transform:translateY(8px)}to{transform:none}}
+.pred{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:13.5px;border:1.5px dashed var(--ink);border-radius:999px;padding:4px 12px 4px 5px;align-self:flex-start}
+.pred i{width:16px;height:16px;border-radius:50%;display:inline-block;border:1.5px solid rgba(0,0,0,.3)}
+.gallery .main{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:3/2;background:var(--soft);max-width:100%}
+.gallery .main img{width:100%;height:100%;object-fit:cover;display:block;animation:kb 14s ease-in-out infinite alternate;transform-origin:60% 50%}
+.gallery .main img.map{animation:none;object-fit:cover}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.09) translate(-1.5%,1%)}}
+.gallery .cap{position:absolute;left:8px;bottom:8px;background:rgba(15,20,17,.8);color:#fff;font-size:12px;font-weight:600;padding:3px 8px;border-radius:6px}
+.gallery .then{position:absolute;right:8px;top:8px;background:#f4ecd6;color:#3b2f17;font-family:var(--f-mono);font-size:11.5px;font-weight:600;padding:3px 8px;border-radius:6px;border:1px solid #cdb98a}
+.thumbs{display:flex;gap:5px;margin-top:6px}
+.thumbs button{flex:1;padding:0;border:2px solid transparent;border-radius:7px;overflow:hidden;aspect-ratio:4/3;background:var(--soft);position:relative;min-width:0}
+.thumbs button[aria-pressed="true"]{border-color:var(--ink)}
+.thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.thumbs .os{position:absolute;inset:auto 0 0 0;background:rgba(0,0,0,.68);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.05em}
+.sec h3{margin:0 0 6px;font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.sec p{margin:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.lu{border:1.5px solid var(--line);background:var(--panel);border-radius:999px;padding:5px 11px;font-weight:600;font-size:13.5px}
+.lu[aria-pressed="true"]{background:var(--ink);color:var(--panel);border-color:var(--ink)}
+.lu.hit{box-shadow:0 0 0 3px var(--good)}
+.lu.miss{box-shadow:0 0 0 3px var(--bad)}
+.lu.missed{border-style:dashed;border-color:var(--good);color:var(--good)}
+.vote{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.vote button{border:2px solid var(--line);background:var(--panel);border-radius:10px;padding:9px 4px;font-weight:800;font-size:13.5px;line-height:1.15}
+.vote button[aria-pressed="true"]{border-color:var(--ink);background:var(--soft)}
+.vote .f{color:var(--good)} .vote .p{color:var(--mid)} .vote .n{color:var(--bad)}
+.go{border:none;background:var(--forest);color:var(--forest-ink);border-radius:11px;padding:12px 16px;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;width:100%}
+.go.alt{background:var(--soft);color:var(--ink);border:1.5px solid var(--line)}
+.go.small{padding:8px 12px;font-size:13.5px}
+.go[disabled]{opacity:.45;cursor:not-allowed}
+.btnrow{display:flex;gap:8px}
+.reveal{border-radius:11px;padding:12px 13px;background:var(--soft);border-left:5px solid var(--ink)}
+.reveal b.v{display:block;font-size:15px;margin-bottom:3px}
+.thenbox{border-radius:11px;padding:11px 13px;background:#f4ecd6;color:#3b2f17;border:1.5px solid #cdb98a}
+.thenbox h3{color:#3b2f17}
+.mixbar{display:flex;height:22px;border-radius:6px;overflow:hidden;border:1.5px solid var(--line)}
+.mixbar span{height:100%}
+.mixleg{display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:6px;font-size:12px;font-weight:600}
+.mixleg span{display:flex;align-items:center;gap:5px}
+.datacard{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.datacard>div{border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;min-width:0}
+.datacard .k{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.datacard .v{font-size:20px;font-weight:900;font-variant-numeric:tabular-nums}
+.slider{display:flex;flex-direction:column;gap:4px}
+.slider input{width:100%;accent-color:var(--forest)}
+.slider .ends{display:flex;justify-content:space-between;font-size:12px;font-weight:700;color:var(--muted)}
+.brief{font-size:15.5px}
+.brief ol{margin:6px 0 0;padding-left:20px}.brief li{margin-bottom:4px}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.feat div{border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;font-size:13px}
+.feat b{display:block;font-size:13.5px}
+table.sum{width:100%;border-collapse:collapse;font-size:13.5px}
+table.sum th,table.sum td{text-align:left;padding:6px 5px;border-bottom:1px solid var(--line)}
+table.sum th{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.starter{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;font-size:14.5px;background:var(--soft)}
+details.src{font-size:12.5px;color:var(--muted)}
+details.src summary{cursor:pointer;font-weight:700}
+.kbd{font-family:var(--f-mono);font-size:11.5px;border:1px solid var(--line);border-radius:4px;padding:0 4px}
+
+@media (max-width: 900px){
+  body{overflow:auto;height:auto}
+  .app{grid-template-columns:1fr}
+  .mapwrap{height:62vh;flex:none}
+  .ctl{width:200px;padding:8px 10px;gap:5px;max-height:calc(100% - 120px)}
+  .lulegend{grid-template-columns:1fr}
+  .tools{top:auto;bottom:48px;right:12px}
+  .readout{display:none}
+  .steps{margin-left:0}
+  .row{grid-template-columns:80px 1fr}
+  .axis,.cursor{margin-left:90px}
+  .cursor{margin-left:88px}
+  .band .seg{font-size:0}
+  .yearbadge{top:auto;bottom:10px;left:12px;transform:none}
+}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} .route-draw{stroke-dashoffset:0} }
+</style>
+
+
+<!--[if gte mso 9]><xml>
+<mso:CustomDocumentProperties>
+<mso:LastModifiedDateTime_Client msdt:dt="string">2026-10-15T21:57:08Z</mso:LastModifiedDateTime_Client>
+</mso:CustomDocumentProperties>
+</xml><![endif]-->
+</head>
+<body>
+<header class="bar">
+  <div class="brand">
+    <svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#25B755"/><circle cx="20" cy="20" r="15" fill="#006DDF"/><circle cx="20" cy="20" r="11" fill="#FFE627"/><circle cx="20" cy="20" r="7" fill="#FF912A"/><circle cx="20" cy="20" r="3.5" fill="#ED3F23"/><line x1="20" y1="20" x2="38" y2="9" stroke="#18211c" stroke-width="2.5"/></svg>
+    <div><h1>Leeds Transect</h1><small>Virtual fieldtrip · Does Leeds fit the Burgess model?</small></div>
+  </div>
+  <nav class="steps" id="steps" aria-label="Stops"></nav>
+</header>
+
+<main class="app">
+  <div class="mapcol">
+    <div class="mapwrap" id="mapwrap">
+      <div id="map" aria-label="Map of east Leeds showing the transect"></div>
+      <div class="pf ctl" id="ctl">
+        <div style="display:flex;justify-content:space-between;align-items:center"><h3>Base map</h3><button class="tbtn" id="ctlMin" style="padding:2px 8px;font-size:12px" aria-expanded="true">Hide layers</button></div>
+        <div class="seg3" id="basemap">
+          <button data-b="today" aria-pressed="true">Today</button>
+          <button data-b="hist" aria-pressed="false">1900s</button>
+          <button data-b="lu" aria-pressed="false">Land use</button>
+        </div>
+        <button class="tbtn" id="btnSwipe" aria-pressed="false" style="justify-content:center">⇆ Compare then and now</button>
+        <div class="lulegend" id="lulegend" hidden></div>
+        <div id="ctlMore" style="display:flex;flex-direction:column;gap:7px"><h3>Layers</h3>
+        <label class="tog"><input type="checkbox" id="lyTransect" checked> Transect line</label>
+        <label class="tog"><input type="checkbox" id="lyRings"> <span class="sw" style="background:conic-gradient(#ED3F23,#FF912A,#FFE627,#006DDF,#25B755,#ED3F23)"></span> Burgess rings</label>
+        <label class="tog"><input type="checkbox" id="lyDensity"> <span class="sw" style="background:#18211c;border-radius:50%"></span> Population density</label>
+        <label class="tog"><input type="checkbox" id="lyBuffer"> <span class="sw" style="border:2px dashed #18211c"></span> 500 m study area</label></div>
+      </div>
+      <div class="pf tools">
+        <button class="tbtn" id="btnMeasure" aria-pressed="false" title="Measure a distance">📏 Measure</button>
+        <button class="tbtn" id="btnFit" title="Show the whole transect">⤢ Whole route</button>
+      </div>
+      <div class="pf yearbadge" id="yearbadge" hidden>OS six-inch map · surveyed 1888 to 1913</div>
+      <div class="swipe" id="swipe" hidden><div class="ln"></div><div class="hd" id="swipeHd" role="slider" aria-label="Compare slider" tabindex="0">⇆</div><span class="tag l">1900s</span><span class="tag r">Today</span></div>
+      <div class="pf readout" id="readout"><span>Move over the map</span></div>
+      <div class="pf hint" id="hint" hidden></div>
+    </div>
+    <section class="profile" aria-label="Transect profile">
+      <div class="ph"><h2>Transect profile: Trinity Leeds → Barwick-in-Elmet</h2>
+        <div class="legend"><span>✔ fits</span><span>~ partly</span><span>✖ does not fit</span></div></div>
+      <div class="track" id="track">
+        <div class="row"><span class="rl">Burgess predicts</span><div class="band" id="bandPred"></div></div>
+        <div class="row"><span class="rl">Real land use</span><div class="band lu" id="bandLU"></div></div>
+        <div class="row"><span class="rl">Your findings</span><div class="band" id="bandFind"></div></div>
+        <div class="axis" id="axis"></div>
+        <div class="cursor" id="cursor" hidden></div>
+      </div>
+    </section>
+  </div>
+  <aside class="nb" aria-live="polite">
+    <div class="nbhead" id="nbhead"></div>
+    <div class="nbbody" id="nbbody"></div>
+  </aside>
+</main>
+
+<script src="vendor/leaflet.js"></script>
+<script>
+(function(){
+const Z=14, N=2**Z, X0=8119, Y0=5272, W=2816, H=1536;
+const MPP=156543.03392*Math.cos(53.81*Math.PI/180)/N;
+function ll2px(lat,lon){const X=(lon+180)/360*N; const r=lat*Math.PI/180; const Y=(1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*N; return [(X-X0)*256,(Y-Y0)*256];}
+function px2ll(x,y){const X=x/256+X0, Y=y/256+Y0; const lon=X/N*360-180; const lat=Math.atan(Math.sinh(Math.PI*(1-2*Y/N)))*180/Math.PI; return [lat,lon];}
+const P=(lat,lon)=>{const [x,y]=ll2px(lat,lon); return L.latLng(-y,x);};
+const PX=(x,y)=>L.latLng(-y,x);
+const km=(a,b)=>Math.hypot(a.lat-b.lat,a.lng-b.lng)*MPP/1000;
+const $=id=>document.getElementById(id);
+
+const ZONES=[
+ {n:'CBD',c:'#ED3F23',t:'#fff',r:0.6},
+ {n:'Inner city',c:'#FF912A',t:'#18211c',r:2.2},
+ {n:'Inner suburbs',c:'#FFE627',t:'#18211c',r:6.2},
+ {n:'Outer suburbs',c:'#006DDF',t:'#fff',r:9.4},
+ {n:'Rural-urban fringe',c:'#25B755',t:'#fff',r:12.0}];
+const LUC={C:['Shops and offices','#ED3F23'],H:['Housing','#F59AC9'],I:['Industry and railways','#7d8590'],S:['Schools and hospitals','#006DDF'],G:['Parks and sport','#7ED957'],W:['Woods and nature','#205B41'],F:['Farmland','#FFE627'],A:['Water','#6EC6F2'],'-':['Roads and other','#d4d7d2']};
+const LU=['Shops and offices','Old terraced houses','New flats','Big roads','Semi-detached houses','Council housing','Tower blocks','Detached houses','Parks and green space','Old village buildings','Farmland'];
+const VERD={F:{t:'Fits',c:'var(--good)',s:'✔'},P:{t:'Partly fits',c:'var(--mid)',s:'~'},N:{t:'Does not fit',c:'var(--bad)',s:'✖'}};
+const STOPS=[
+ {name:'Trinity Leeds',ll:[53.7967,-1.5438],z:0,ward:'Little London & Woodhouse',dens:5902,
+  photos:[['s1_0.jpg','Inside Trinity Leeds'],['s1_1.jpg','Briggate, the main shopping street'],['s1_2.jpg','Trinity Leeds under its glass roof'],['s1_3.jpg','OS map today','os'],['then1.jpg','The same place around 1900','then']],
+  lu:['Shops and offices','New flats'], verdict:'F',
+  why:'Shops, offices, cafés and the railway station, with almost no houses or green space. This is exactly what Burgess predicts for the CBD. Trinity Leeds opened in 2013 on some of the most expensive land in the city.',
+  then:'Around 1900 this was already the busy heart of Leeds. Briggate, Kirkgate Market and two railway stations are all on the old map. The CBD has stayed in the same place for over 100 years, even though its buildings have been rebuilt again and again.',
+  q:'What has stayed the same here since 1900? What has changed?'},
+ {name:'New York Road',ll:[53.7999,-1.5334],z:1,ward:'Burmantofts & Richmond Hill',dens:3261,
+  photos:[['s2_0.jpg','New York Road'],['s2_1.jpg','The inner ring road and new flats'],['s2_2.jpg','Newer houses, Naseby Terrace'],['s2_3.jpg','OS map today','os'],['then2.jpg','The same place around 1900','then']],
+  lu:['Big roads','New flats','Shops and offices'], verdict:'P',
+  why:'Close to the centre and busy, as Burgess expects, but the old terraced houses have mostly gone. They were cleared and replaced with the inner ring road, offices, car parks, new flats and newer houses. The inner city has been redeveloped.',
+  then:'Around 1900 Quarry Hill and Burmantofts were packed with rows of back-to-back houses, mills and chapels: exactly the inner city Burgess described. The Quarry Hill slums were cleared in the 1930s, and roads, offices and new homes took their place.',
+  q:'Swipe the map. What has replaced the rows of terraced houses?'},
+ {name:'Parklands, Seacroft',ll:[53.8138,-1.4686],z:2,ward:'Killingbeck & Seacroft',dens:4091,
+  photos:[['s3_0.jpg','Parklands'],['s3_1.jpg','Tower blocks on North Parkway'],['s3_2.jpg','Semi-detached council houses'],['s3_3.jpg','Seacroft from Fearnville'],['s3_4.jpg','OS map today','os'],['then3.jpg','The same place around 1900','then']],
+  lu:['Semi-detached houses','Council housing','Tower blocks','Parks and green space'], verdict:'N',
+  why:'The semi-detached houses and greens look like inner suburbs, but this is part of the Seacroft council estate, built from the 1950s for families moved out of the inner city, with tower blocks nearby. Its ward is denser than Burmantofts, which is closer to the centre.',
+  then:'Around 1900 there were no houses here at all: just fields, a hill called Iron Hills and the parkland of Seacroft Hall, with the small village of Seacroft to the north-east. Two isolation hospitals stood to the south. The council built the estate on these fields from the 1950s.',
+  q:'Look at the 1900s map. Where might the name "Parklands" have come from?'},
+ {name:'Scholes',ll:[53.8261,-1.4277],z:3,ward:'Harewood',dens:169,
+  photos:[['s4_0.jpg','Detached houses in Scholes'],['s4_1.jpg','Newer detached houses'],['s4_2.jpg','Main Street, the old village'],['s4_3.jpg','OS map today','os'],['then4.jpg','The same place around 1900','then']],
+  lu:['Detached houses','Parks and green space','Old village buildings'], verdict:'F',
+  why:'Detached houses and bungalows with drives, garages and big gardens, and most people need a car: a good fit for the outer suburbs. But look at Main Street: Scholes was an old village that new housing grew around, and fields separate it from the main city.',
+  then:'Around 1900 Scholes was a tiny village with a church, a brick and tile works and a station on the Leeds to Wetherby railway, with fields all around. Most of the houses you can see today were built on those fields during the 1900s.',
+  q:'Swipe the map. Which old features can you still find today?'},
+ {name:'Barwick-in-Elmet',ll:[53.8303,-1.3935],z:4,ward:'Harewood',dens:169,
+  photos:[['s5_0.jpg','The maypole, Barwick-in-Elmet'],['s5_1.jpg','The New Inn'],['s5_2.jpg','Farmland on the edge of the city'],['s5_3.jpg','OS map today','os'],['then5.jpg','The same place around 1900','then']],
+  lu:['Old village buildings','Farmland','Detached houses'], verdict:'P',
+  why:'This is where the city meets the countryside, with farmland all around. But Burgess\'s fringe has retail parks, hospitals and golf courses. Barwick is an old commuter village with its own centre, not the edge of one continuous city.',
+  then:'Around 1900 Barwick-in-Elmet was already a village with All Saints\' Church, a main street and Hall Tower Hill, an ancient earthwork, at its heart, surrounded by fields and quarries. It has grown since, but it is still a separate village.',
+  q:'How much bigger is the village today? Use the swipe to compare.'}];
+const WARDS=[
+ {n:'Little London & Woodhouse',ll:[53.8075,-1.5520],d:5902},
+ {n:'Burmantofts & Richmond Hill',ll:[53.8000,-1.5150],d:3261},
+ {n:'Killingbeck & Seacroft',ll:[53.8165,-1.4800],d:4091},
+ {n:'Cross Gates & Whinmoor',ll:[53.8250,-1.4520],d:2424},
+ {n:'Harewood',ll:[53.8420,-1.4000],d:169}];
+const PATCH={1:[512,960],2:[640,896],3:[1408,576],4:[1856,384],5:[2240,256]};
+STOPS.forEach(s=>{s.p=P(...s.ll);});
+const ORIGIN=STOPS[0].p, END=STOPS[4].p;
+STOPS.forEach(s=>{s.km=km(ORIGIN,s.p);});
+const LINE_KM=km(ORIGIN,END), TOTAL=11.5;
+
+const st={i:-1, before:50, after:50, votes:{}, lu:{}, checked:{}, photo:{}};
+try{const s=JSON.parse(localStorage.getItem('leedsTransect2')||'null'); if(s&&s.votes){Object.assign(st,s,{i:-1});}}catch(e){}
+const save=()=>{try{localStorage.setItem('leedsTransect2',JSON.stringify(st));}catch(e){}};
+
+// ---------- map ----------
+const map=L.map('map',{crs:L.CRS.Simple,minZoom:-2.25,maxZoom:2,zoomSnap:.25,zoomDelta:.5,zoomAnimation:true});
+map.zoomControl.setPosition('bottomright');
+map.attributionControl.setPrefix(false);
+const B=[[-H,0],[0,W]];
+const today=L.layerGroup().addTo(map);
+const osm=L.imageOverlay('map.jpg',B,{attribution:'Map data © OpenStreetMap contributors'}).addTo(today);
+Object.entries(PATCH).forEach(([k,[x,y]])=>L.imageOverlay(`z16_s${k}.jpg`,[[-(y+256),x],[-y,x+320]],{className:'patch'}).addTo(today));
+const hist=L.imageOverlay('hist.jpg',B,{attribution:'Historic map reproduced with the permission of the National Library of Scotland (CC BY)',zIndex:5});
+const luRenderer=L.canvas({padding:.5});
+const luLayer=L.layerGroup();
+let luLoaded=false;
+function loadLU(){ if(luLoaded) return Promise.resolve(); return fetch('landuse_px.json').then(r=>r.json()).then(fs=>{fs.forEach(([c,co])=>{L.polygon(co.map(([x,y])=>PX(x,y)),{renderer:luRenderer,stroke:false,fillColor:LUC[c][1],fillOpacity:.78,interactive:false}).addTo(luLayer);}); luLoaded=true;}).catch(()=>showHint('The land use data did not load. Try refreshing the page.')); }
+const FITPAD=()=>matchMedia('(max-width: 900px)').matches?{padding:[20,20]}:{paddingTopLeft:[260,30],paddingBottomRight:[20,20]};
+function coverZoom(){ const sz=map.getSize(); if(matchMedia('(max-width: 900px)').matches){ map.setMinZoom(-2.5); return; } const z=Math.log2(Math.min(sz.x/W, sz.y/H)); map.setMinZoom(Math.floor(z*4)/4); }
+coverZoom(); map.on('resize',coverZoom);
+map.fitBounds(L.latLngBounds(STOPS.map(s=>s.p)).pad(.08),FITPAD());
+const routeBounds=L.latLngBounds(STOPS.map(s=>s.p)).pad(.08);
+
+// transect (animated draw)
+const transect=L.layerGroup().addTo(map);
+const lineShadow=L.polyline([ORIGIN,END],{color:'#18211c',weight:9,opacity:.85,className:'route-draw'}).addTo(transect);
+const lineTop=L.polyline([ORIGIN,END],{color:'#FFE627',weight:5,className:'route-draw'}).addTo(transect);
+function primeDraw(){[lineShadow,lineTop].forEach(l=>{const p=l.getElement(); if(!p) return; const len=p.getTotalLength(); p.style.setProperty('--len',len);});}
+primeDraw();
+map.once('zoomend moveend',()=>{[lineShadow,lineTop].forEach(l=>{const p=l.getElement(); if(p){p.classList.remove('route-draw'); p.style.strokeDasharray='';}});});
+const trail=L.polyline([],{color:'#ED3F23',weight:4,dashArray:'2 9',lineCap:'round'}).addTo(transect);
+
+const markers=STOPS.map((s,i)=>{const z=ZONES[s.z];
+  const m=L.marker(s.p,{zIndexOffset:500,icon:L.divIcon({className:'',html:`<div class="pin" id="pin${i}" style="background:${z.c};color:${z.t}">${i+1}</div>`,iconSize:[40,40],iconAnchor:[20,20]}),keyboard:true,title:s.name}).addTo(map);
+  m.bindTooltip(`<span class="pinlab">${s.name}</span>`,{permanent:true,direction:i===1?'top':'bottom',offset:i===1?[0,-18]:[0,18],className:'tt',opacity:1});
+  m.on('click',()=>{ if(!measuring) go(i); }); return m;});
+
+// layers
+const rings=L.layerGroup();
+for(let i=ZONES.length-1;i>=0;i--){const z=ZONES[i];
+  L.circle(ORIGIN,{radius:z.r*1000/MPP,color:z.c,weight:2,fillColor:z.c,fillOpacity:.15,interactive:false}).addTo(rings);
+  if(i>0){const mid=(ZONES[i-1].r+z.r)/2*1000/MPP; L.marker(L.latLng(ORIGIN.lat-mid*Math.sin(.6),ORIGIN.lng+mid*Math.cos(.6)),{interactive:false,icon:L.divIcon({className:'',html:`<span class="ringlab">${z.n}</span>`,iconSize:null})}).addTo(rings);}
+}
+const density=L.layerGroup();
+WARDS.forEach(w=>{const p=P(...w.ll);
+  L.circleMarker(p,{radius:Math.max(7,Math.sqrt(w.d)/2.2),color:'#18211c',weight:2,fillColor:'#18211c',fillOpacity:.3,interactive:false}).addTo(density);
+  L.marker(p,{interactive:false,icon:L.divIcon({className:'',html:`<div class="dens">${w.d.toLocaleString('en-GB')} /km²<small>${w.n}</small></div>`,iconSize:[150,34],iconAnchor:[75,-14]})}).addTo(density);});
+const buffers=L.layerGroup();
+STOPS.forEach(s=>L.circle(s.p,{radius:500/MPP,color:'#18211c',weight:2,dashArray:'6 6',fill:false,interactive:false}).addTo(buffers));
+
+$('lyTransect').addEventListener('change',e=>e.target.checked?transect.addTo(map):transect.remove());
+$('lyRings').addEventListener('change',e=>{e.target.checked?rings.addTo(map):rings.remove(); if(e.target.checked) showHint('The coloured rings are Burgess\'s prediction, centred on the CBD. Do the real places match their ring?');});
+$('lyDensity').addEventListener('change',e=>{e.target.checked?density.addTo(map):density.remove(); if(e.target.checked) showHint('Bigger circle = more people per km² (Census 2021). Can you spot the anomaly?');});
+$('lyBuffer').addEventListener('change',e=>{e.target.checked?buffers.addTo(map):buffers.remove(); if(e.target.checked) showHint('Each dashed circle is the 500 m study area used for the land use mix in the notebook.');});
+$('btnFit').addEventListener('click',()=>map.flyToBounds(routeBounds,Object.assign({duration:.9},FITPAD())));
+
+// basemaps
+let base='today';
+function setBase(b){ base=b; if(swipeOn) toggleSwipe(false);
+  document.querySelectorAll('#basemap button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.b===b));
+  hist.remove(); luLayer.remove(); osm.setOpacity(1); $('yearbadge').hidden=true; $('lulegend').hidden=true;
+  if(b==='hist'){ hist.addTo(map); $('yearbadge').hidden=false; showHint('This is the Ordnance Survey map from around 1900. Look for terraced streets, mills, fields and villages.'); }
+  if(b==='lu'){ osm.setOpacity(.35); loadLU().then(()=>luLayer.addTo(map)); $('lulegend').hidden=false; showHint('Land use from OpenStreetMap. Follow the transect: how does the colour change as you move out?'); }
+}
+document.querySelectorAll('#basemap button').forEach(b=>b.addEventListener('click',()=>setBase(b.dataset.b)));
+$('lulegend').innerHTML=Object.entries(LUC).map(([k,[n,c]])=>`<span><i class="sw" style="background:${c}"></i>${n}</span>`).join('');
+
+// swipe compare
+let swipeOn=false, swipeX=.5;
+function clipHist(){ if(!swipeOn) return; const el=hist.getElement(); if(!el) return;
+  const wrap=$('mapwrap').getBoundingClientRect(); const r=el.getBoundingClientRect();
+  const x=wrap.left+wrap.width*swipeX; const cut=Math.max(0,Math.min(r.width,x-r.left));
+  el.style.clipPath=`inset(0 ${r.width-cut}px 0 0)`; $('swipe').style.left=(wrap.width*swipeX)+'px'; }
+function toggleSwipe(on){ swipeOn=on; $('btnSwipe').setAttribute('aria-pressed',on); $('swipe').hidden=!on;
+  if(on){ if(base!=='today'){ base='today'; document.querySelectorAll('#basemap button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.b==='today')); luLayer.remove(); osm.setOpacity(1); $('lulegend').hidden=true;}
+    hist.addTo(map); $('yearbadge').hidden=true; requestAnimationFrame(clipHist); showHint('Drag the yellow handle: 1900s on the left, today on the right.'); }
+  else { const el=hist.getElement(); if(el) el.style.clipPath=''; hist.remove(); } }
+$('btnSwipe').addEventListener('click',()=>toggleSwipe(!swipeOn));
+map.on('move zoom zoomend moveend viewreset resize',clipHist);
+map.on('zoomanim',()=>setTimeout(clipHist,260));
+(function(){const hd=$('swipeHd'); let drag=false;
+  const mv=e=>{if(!drag) return; const w=$('mapwrap').getBoundingClientRect(); swipeX=Math.max(.02,Math.min(.98,(e.clientX-w.left)/w.width)); clipHist();};
+  hd.addEventListener('pointerdown',e=>{drag=true; hd.setPointerCapture(e.pointerId); map.dragging.disable(); e.stopPropagation();});
+  hd.addEventListener('pointermove',mv);
+  hd.addEventListener('pointerup',()=>{drag=false; map.dragging.enable();});
+  hd.addEventListener('keydown',e=>{ if(e.key==='ArrowLeft'){swipeX=Math.max(.02,swipeX-.04);clipHist();e.stopPropagation();e.preventDefault();} if(e.key==='ArrowRight'){swipeX=Math.min(.98,swipeX+.04);clipHist();e.stopPropagation();e.preventDefault();} });
+  L.DomEvent.disableClickPropagation($('swipe'));
+})();
+function setCtl(open){$('ctlMore').hidden=!open; $('ctlMin').textContent=open?'Hide layers':'Layers'; $('ctlMin').setAttribute('aria-expanded',open); if(!open) $('lulegend').hidden=true; else if(base==='lu') $('lulegend').hidden=false;}
+$('ctlMin').addEventListener('click',()=>setCtl($('ctlMore').hidden));
+if(matchMedia('(max-width: 900px)').matches) setCtl(false);
+L.DomEvent.disableClickPropagation($('ctl')); L.DomEvent.disableScrollPropagation($('ctl'));
+
+// van
+const van=L.marker(ORIGIN,{interactive:false,zIndexOffset:1000,icon:L.divIcon({className:'',html:'<div class="van" aria-hidden="true">🚌</div>',iconSize:[32,32],iconAnchor:[16,28]})});
+
+// readout
+map.on('mousemove',e=>{const [lat,lon]=px2ll(e.latlng.lng,-e.latlng.lat); const d=km(ORIGIN,e.latlng);
+  $('readout').innerHTML=`<span><b>${lat.toFixed(4)}°N ${Math.abs(lon).toFixed(4)}°W</b></span><span>${d.toFixed(1)} km from the CBD</span><span>${ringOf(d)}</span>`;});
+function ringOf(d){for(const z of ZONES){if(d<=z.r) return 'Burgess: '+z.n;} return 'Beyond the model';}
+
+// measure
+let measuring=false, mpts=[], mlayer=L.layerGroup().addTo(map);
+$('btnMeasure').addEventListener('click',()=>{measuring=!measuring; $('btnMeasure').setAttribute('aria-pressed',measuring); mlayer.clearLayers(); mpts=[];
+  map.getContainer().style.cursor=measuring?'crosshair':''; showHint(measuring?'Click two places on the map to measure the straight-line distance.':'');});
+map.on('click',e=>{ if(!measuring) return; if(mpts.length===0) mlayer.clearLayers(); mpts.push(e.latlng);
+  L.circleMarker(e.latlng,{radius:6,color:'#18211c',fillColor:'#FFE627',fillOpacity:1,weight:2}).addTo(mlayer);
+  if(mpts.length===2){const d=km(mpts[0],mpts[1]); L.polyline(mpts,{color:'#18211c',weight:3,dashArray:'8 6'}).addTo(mlayer);
+    const mid=L.latLng((mpts[0].lat+mpts[1].lat)/2,(mpts[0].lng+mpts[1].lng)/2);
+    L.marker(mid,{interactive:false,icon:L.divIcon({className:'',html:`<span class="measlab">${d.toFixed(2)} km</span>`,iconSize:null})}).addTo(mlayer);
+    showHint(`That is ${d.toFixed(2)} km in a straight line. Click again to measure something else.`); mpts=[]; }});
+let hintT; function showHint(t){const h=$('hint'); if(!t){h.hidden=true;return;} h.textContent=t; h.hidden=false; clearTimeout(hintT); hintT=setTimeout(()=>{h.hidden=true},7000);}
+
+// ---------- profile ----------
+let PROFILE=null, MIX=null;
+const pct=k=>Math.max(1.8,Math.min(98.2,k/TOTAL*100));
+function drawProfile(){
+  let prev=0, html='';
+  ZONES.forEach(z=>{const a=prev/TOTAL*100, b=z.r/TOTAL*100; html+=`<div class="seg" style="left:${a}%;width:${b-a}%;background:${z.c};color:${z.t}">${b-a>9?z.n:''}</div>`; prev=z.r;});
+  $('bandPred').innerHTML=html;
+  if(PROFILE){ const cats=PROFILE.cats, step=PROFILE.step/1000; let out='', i=0;
+    while(i<cats.length){ let j=i; while(j<cats.length&&cats[j]===cats[i]) j++; const a=i*step/TOTAL*100, w=(j-i)*step/TOTAL*100; const c=LUC[cats[i]];
+      out+=`<div class="seg" title="${c[0]}: ${(i*step).toFixed(1)} to ${(j*step).toFixed(1)} km" style="left:${a}%;width:${w+.05}%;background:${c[1]}"></div>`; i=j; }
+    const end=cats.length*step/TOTAL*100; out+=`<div class="seg" style="left:${end}%;right:0;background:repeating-linear-gradient(45deg,var(--soft) 0 4px,var(--line) 4px 6px)" title="Beyond Barwick-in-Elmet"></div>`;
+    $('bandLU').innerHTML=out; }
+  $('bandFind').innerHTML=STOPS.map((s,i)=>{const v=st.votes[i];
+    if(!v) return `<div class="find" style="left:${pct(s.km)}%;opacity:.45" title="Stop ${i+1}">${i+1}</div>`;
+    const V=VERD[v]; return `<div class="find" style="left:${pct(s.km)}%;background:${V.c};color:#fff" title="Stop ${i+1}: ${V.t}">${V.s}</div>`;}).join('');
+  $('axis').innerHTML=[0,2,4,6,8,10].map(k=>`<span style="left:${k/TOTAL*100}%">${k} km</span>`).join('');
+}
+function moveCursor(i){ const c=$('cursor'); if(i<0||i>4){c.hidden=true;return;} c.hidden=false; const band=$('bandPred').getBoundingClientRect(), tr=$('track').getBoundingClientRect(); c.style.marginLeft='0px'; c.style.left=(band.left-tr.left+band.width*STOPS[i].km/TOTAL-1)+'px'; }
+window.addEventListener('resize',()=>moveCursor(st.i));
+
+// ---------- steps ----------
+function drawSteps(){
+  $('steps').innerHTML=`<button class="step" data-i="-1" aria-current="${st.i===-1}"><i style="background:var(--yellow);color:#18211c">★</i>Brief</button>`+
+   STOPS.map((s,i)=>{const z=ZONES[s.z]; const v=st.votes[i]; return `<button class="step" data-i="${i}" aria-current="${st.i===i}"><i style="background:${z.c};color:${z.t}">${i+1}</i>${s.name.split(',')[0]}${v?`<span class="ok" style="color:${VERD[v].c}">${VERD[v].s}</span>`:''}</button>`;}).join('')+
+   `<button class="step" data-i="5" aria-current="${st.i===5}"><i style="background:var(--forest);color:var(--forest-ink)">⚖</i>Verdict</button>`;
+  document.querySelectorAll('.step').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.i)));
+}
+
+// ---------- notebook ----------
+function head(chip,chipBg,chipFg,title,meta){ $('nbhead').innerHTML=`<div class="chip" style="background:${chipBg};color:${chipFg}">${chip}</div><div style="min-width:0"><h2>${title}</h2><div class="meta">${meta}</div></div>`; }
+function body(html){ const b=$('nbbody'); b.classList.remove('enter'); b.innerHTML=html; void b.offsetWidth; b.classList.add('enter'); b.scrollTop=0; }
+
+function renderBrief(){
+  head('★','var(--yellow)','#18211c','Your mission',`Briefing · 5 stops · ${LINE_KM.toFixed(1)} km`);
+  body(`
+   <div class="sec brief"><p>Travel along a <b>transect</b> from Trinity Leeds in the CBD to the village of Barwick-in-Elmet. At each stop:</p>
+   <ol><li><b>Look</b> at the photos, today's map and the map from around 1900.</li><li><b>Record</b> the land uses you can see.</li><li><b>Decide</b>: does it fit what Burgess predicts?</li></ol></div>
+   <div class="sec slider"><h3>Before you go</h3><p>How well do you think Leeds will fit the Burgess model?</p>
+     <input type="range" id="before" min="0" max="100" value="${st.before}" aria-label="Your first guess">
+     <div class="ends"><span>Not at all</span><span>Partly</span><span>Perfectly</span></div></div>
+   <div class="sec"><h3>Your GIS toolkit</h3><div class="feat">
+     <div><b>⇆ Then and now</b>Swipe between the map from around 1900 and today.</div>
+     <div><b>Land use map</b>Real land use from OpenStreetMap, coloured by type.</div>
+     <div><b>Burgess rings</b>The model's prediction laid over the real city.</div>
+     <div><b>📏 Measure</b>Check distances, like the scale bar on an OS map.</div></div></div>
+   <button class="go" id="start">Start the fieldtrip →</button>
+   <p style="font-size:12.5px;color:var(--muted);margin:0">Tip: use <span class="kbd">←</span> <span class="kbd">→</span> to move between stops.</p>`);
+  $('before').addEventListener('input',e=>{st.before=+e.target.value; save();});
+  $('start').addEventListener('click',()=>go(0));
+}
+function mixHtml(i){ if(!MIX) return ''; const m=MIX[i]; const order=['C','H','I','S','G','W','F','A','-'];
+  const parts=order.filter(k=>m[k]>0).map(k=>({k,v:m[k]}));
+  return `<div class="sec"><h3>Land use within 500 m (OpenStreetMap)</h3>
+   <div class="mixbar" role="img" aria-label="Land use mix">${parts.map(p=>`<span style="width:${p.v}%;background:${LUC[p.k][1]}" title="${LUC[p.k][0]}: ${p.v}%"></span>`).join('')}</div>
+   <div class="mixleg">${parts.filter(p=>p.v>=3).sort((a,b)=>b.v-a.v).map(p=>`<span><i class="sw" style="background:${LUC[p.k][1]}"></i>${LUC[p.k][0]} ${p.v}%</span>`).join('')}</div></div>`; }
+
+function renderStop(i){
+  const s=STOPS[i], z=ZONES[s.z];
+  head(i+1,z.c,z.t,s.name,`Stop ${i+1} of 5 · ${s.km.toFixed(1)} km from the CBD`);
+  const pi=st.photo[i]||0, sel=st.lu[i]||[], checked=st.checked[i], v=st.votes[i]; const ph=s.photos[pi];
+  const luHtml=LU.map(l=>{const on=sel.includes(l); let cls='lu';
+    if(checked){ const real=s.lu.includes(l); if(on&&real) cls+=' hit'; else if(on&&!real) cls+=' miss'; else if(!on&&real) cls+=' missed'; }
+    return `<button class="${cls}" aria-pressed="${on}" data-l="${l}">${l}</button>`;}).join('');
+  body(`
+   <span class="pred"><i style="background:${z.c}"></i>Burgess predicts: ${z.n.toUpperCase()}</span>
+   <div class="gallery"><div class="main"><img class="${ph[2]?'map':''}" src="${ph[0]}" alt="${ph[1]}"><span class="cap">${ph[1]}</span>${ph[2]==='then'?'<span class="then">around 1900</span>':''}</div>
+     <div class="thumbs">${s.photos.map((p,k)=>`<button aria-pressed="${k===pi}" data-k="${k}" aria-label="${p[1]}"><img src="${p[0]}" alt="">${p[2]==='os'?'<span class="os">MAP NOW</span>':p[2]==='then'?'<span class="os">1900s</span>':''}</button>`).join('')}</div></div>
+   <div class="thenbox"><div class="sec"><h3>Then and now</h3><p>${s.then}</p><p style="margin-top:6px;font-weight:700">${s.q}</p></div>
+     <div class="btnrow" style="margin-top:8px"><button class="go small" id="swipeHere" style="background:#3b2f17;color:#f4ecd6">⇆ Compare here</button></div></div>
+   <div class="sec"><h3>1 · Record: what land uses can you see?</h3><div class="chips" id="chips">${luHtml}</div></div>
+   <div class="sec"><h3>2 · Decide: does it fit the model?</h3>
+     <div class="vote" id="vote"><button class="f" data-v="F" aria-pressed="${v==='F'}">✔ Fits</button><button class="p" data-v="P" aria-pressed="${v==='P'}">~ Partly</button><button class="n" data-v="N" aria-pressed="${v==='N'}">✖ Does not fit</button></div></div>
+   ${checked?revealHtml(i):`<button class="go" id="check" ${v?'':'disabled'}>3 · Check with the geographers</button>`}
+   <div class="btnrow"><button class="go alt" id="prev">← ${i===0?'Briefing':'Stop '+i}</button><button class="go" id="next">${i===4?'Verdict ⚖':'Travel to stop '+(i+2)+' →'}</button></div>`);
+  document.querySelectorAll('.thumbs button').forEach(b=>b.addEventListener('click',()=>{st.photo[i]=+b.dataset.k; renderStop(i);}));
+  document.querySelectorAll('#chips .lu').forEach(b=>b.addEventListener('click',()=>{ if(st.checked[i]) return; const l=b.dataset.l; const a=st.lu[i]||[]; st.lu[i]=a.includes(l)?a.filter(x=>x!==l):a.concat(l); save(); renderStop(i);}));
+  document.querySelectorAll('#vote button').forEach(b=>b.addEventListener('click',()=>{st.votes[i]=b.dataset.v; save(); renderStop(i); drawProfile(); drawSteps();}));
+  const c=$('check'); if(c) c.addEventListener('click',()=>{st.checked[i]=true; save(); renderStop(i);});
+  $('swipeHere').addEventListener('click',()=>{ map.flyTo(s.p,.75,{duration:.8}); setTimeout(()=>{ if(!swipeOn) toggleSwipe(true); else clipHist(); },850); });
+  $('prev').addEventListener('click',()=>go(i-1));
+  $('next').addEventListener('click',()=>go(i+1));
+}
+function revealHtml(i){
+  const s=STOPS[i], V=VERD[s.verdict], mine=st.votes[i];
+  return `<div class="reveal" style="border-left-color:${V.c}"><b class="v" style="color:${V.c}">Geographers say: ${V.s} ${V.t}</b>
+    <p style="margin:0 0 6px">${s.why}</p><p style="margin:0;font-weight:700">${mine===s.verdict?'You agreed. Now explain why in your book.':'You chose "'+VERD[mine].t+'". Can you defend your answer with evidence?'}</p></div>
+   ${mixHtml(i)}
+   <div class="datacard"><div><div class="k">Ward</div><div style="font-weight:800;font-size:14px">${s.ward}</div></div><div><div class="k">Density 2021</div><div class="v">${s.dens.toLocaleString('en-GB')}<span style="font-size:12px;font-weight:600"> /km²</span></div></div></div>
+   <p style="margin:0;font-size:13px;color:var(--muted)">Ringed chips = you spotted it. Red = not really here. Dashed = you missed it.</p>`;
+}
+function label(v){return v>80?'fits perfectly':v>60?'mostly fits':v>40?'partly fits':v>20?'only a little':'does not fit at all';}
+function renderVerdict(){
+  head('⚖','var(--forest)','var(--forest-ink)','Your verdict','Does Leeds fit the Burgess model?');
+  const rows=STOPS.map((s,i)=>{const v=st.votes[i]; const g=VERD[s.verdict];
+    return `<tr><td><b>${i+1}</b> ${s.name}</td><td>${ZONES[s.z].n}</td><td style="color:${v?VERD[v].c:'var(--muted)'};font-weight:800">${v?VERD[v].s+' '+VERD[v].t:'not decided'}</td><td style="color:${g.c};font-weight:800">${g.s}</td></tr>`;}).join('');
+  const agree=STOPS.filter((s,i)=>st.votes[i]===s.verdict).length;
+  const fits=STOPS.filter((s,i)=>st.votes[i]==='F').map(s=>s.name), nots=STOPS.filter((s,i)=>st.votes[i]==='N'||st.votes[i]==='P').map(s=>s.name);
+  const starter=()=>`Overall, Leeds ${st.after>66?'mostly fits':st.after>33?'partly fits':'does not really fit'} the Burgess model. ${fits.length?'It fits at '+fits.join(' and ')+', where... ':''}${nots.length?'However, '+nots.join(' and ')+' '+(nots.length>1?'do':'does')+' not fit as well, because... ':''}This is because Leeds' history...`;
+  body(`
+   <div class="sec"><h3>Your decisions</h3><div style="overflow-x:auto"><table class="sum"><thead><tr><th>Stop</th><th>Burgess</th><th>You</th><th>Geog.</th></tr></thead><tbody>${rows}</tbody></table></div>
+     <p style="margin-top:6px;font-weight:700">You agreed with the geographers at ${agree} of 5 stops.</p></div>
+   <div class="sec"><h3>What the land use profile shows</h3><p>Look at the <b>Real land use</b> row under the map: shops and offices in the centre, then housing broken up by parks and woods, then farmland from about 8 km. The general pattern fits Burgess, but the housing is not in neat rings.</p></div>
+   <div class="sec slider"><h3>After the trip</h3><p>Move the slider to your NEW view. Your first guess was <b>${label(st.before)}</b>.</p>
+     <input type="range" id="after" min="0" max="100" value="${st.after}" aria-label="Your new view">
+     <div class="ends"><span>Not at all</span><span>Partly</span><span>Perfectly</span></div>
+     <p id="now" style="margin:4px 0 0;font-weight:700">Now: ${label(st.after)}</p></div>
+   <div class="sec"><h3>Start your 8-mark answer</h3><p style="margin-bottom:6px"><i>Evaluate how well the Burgess model fits Leeds. (8)</i></p>
+     <div class="starter" id="starter">${starter()}</div>
+     <div class="btnrow" style="margin-top:8px"><button class="go alt" id="copy">Copy sentence starter</button></div></div>
+   <div class="btnrow"><button class="go alt" id="back">← Stop 5</button><button class="go alt" id="reset">Start again</button></div>
+   <details class="src"><summary>About the maps, data and photos</summary><p>Today's map and land use: © OpenStreetMap contributors (ODbL), October 2026. Historic map: Ordnance Survey six-inch map, surveyed 1888 to 1913, reproduced with the permission of the National Library of Scotland (CC BY). Population density: ONS Census 2021, table TS006, by ward. OS map extracts: Digimap for Schools, © Crown copyright, for school use. Street-level images of New York Road, Parklands, Scholes and the New Inn: Google Street View. Other photos via Wikimedia Commons (CC BY-SA): Mtaylor848 (Trinity Leeds, Briggate, Seacroft, Scholes Main Street), Chris Heaton (North Parkway), John Fergusson (Barwick maypole), JThomas (farmland near Scholes). The land use mix samples a 500 m circle round each stop. Burgess ring sizes are drawn to match the stops for this lesson; the real model has no fixed distances.</p></details>`);
+  $('after').addEventListener('input',e=>{st.after=+e.target.value; save(); $('now').textContent='Now: '+label(st.after); $('starter').textContent=starter();});
+  $('copy').addEventListener('click',()=>{const t=$('starter').textContent; navigator.clipboard.writeText(t).then(()=>{$('copy').textContent='Copied';}).catch(()=>{const r=document.createRange(); r.selectNodeContents($('starter')); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r); $('copy').textContent='Selected: press Ctrl+C';});});
+  $('back').addEventListener('click',()=>go(4));
+  $('reset').addEventListener('click',()=>{st.votes={};st.lu={};st.checked={};st.photo={};st.before=50;st.after=50;save();trail.setLatLngs([]);drawProfile();go(-1);});
+}
+
+// ---------- navigation + animation ----------
+let raf, visited=0;
+function go(i){
+  i=Math.max(-1,Math.min(5,i)); const from=st.i; st.i=i;
+  document.querySelectorAll('.pin').forEach((p,k)=>p.classList.toggle('on',k===i));
+  if(i>=0&&i<5){
+    if(!map.hasLayer(van)) van.addTo(map);
+    const target=STOPS[i].p, start=van.getLatLng();
+    animateVan(start,target, i>visited);
+    visited=Math.max(visited,i);
+    map.flyTo(target,0.5,{duration:1.1});
+  } else { map.flyToBounds(routeBounds,Object.assign({duration:.9},FITPAD())); if(i===-1) van.remove(); }
+  moveCursor(i); drawSteps();
+  if(i===-1) renderBrief(); else if(i===5) renderVerdict(); else renderStop(i);
+}
+function animateVan(a,b,extend){ cancelAnimationFrame(raf); const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finish=()=>{van.setLatLng(b); if(extend||!trail.getLatLngs().length) trail.setLatLngs([ORIGIN,farthest(b)]);};
+  if(reduce){finish();return;}
+  const t0=performance.now(), dur=1100; (function f(t){const k=Math.min(1,(t-t0)/dur), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+    const p=L.latLng(a.lat+(b.lat-a.lat)*e,a.lng+(b.lng-a.lng)*e); van.setLatLng(p);
+    if(extend) trail.setLatLngs([ORIGIN,p]);
+    if(k<1) raf=requestAnimationFrame(f); else finish();})(t0);}
+function farthest(b){ const pts=trail.getLatLngs(); if(!pts.length) return b; return km(ORIGIN,pts[1])>km(ORIGIN,b)?pts[1]:b; }
+document.addEventListener('keydown',e=>{ if(e.target.tagName==='INPUT'||e.target.getAttribute('role')==='slider') return; if(e.key==='ArrowRight') go(st.i+1); if(e.key==='ArrowLeft') go(st.i-1);});
+
+Promise.all([fetch('profile.json').then(r=>r.json()).catch(()=>null),fetch('mix.json').then(r=>r.json()).catch(()=>null)]).then(([p,m])=>{PROFILE=p; MIX=m; drawProfile(); if(st.i>=0&&st.i<5&&st.checked[st.i]) renderStop(st.i);});
+drawProfile();
+const hm=/^#stop([1-5])$/.exec(location.hash||'');
+go(hm?+hm[1]-1:-1);
+window.addEventListener('hashchange',()=>{const m=/^#stop([1-5])$/.exec(location.hash||''); if(m) go(+m[1]-1);});
+})();
+</script>
+
+</body>
+</html>
